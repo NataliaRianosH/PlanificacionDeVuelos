@@ -3,6 +3,7 @@ package object PlanificacionDeVuelos {
   type Itinerario= List[Vuelo]
   /**
    * ENCONTRANDO RUTAS
+   * dados dos aeropuertos devuelve la lista de itinerarios posibles para viajar entre esos aeropuertos
    * */
   def itinerario(a1: String, a2: String):List[Itinerario]={
     def genDestDirecto(aeropuerto: String, vuelos: List[Vuelo]):Itinerario=vuelos.filter((p:Vuelo)=>p.Org.equals(aeropuerto))
@@ -23,6 +24,8 @@ package object PlanificacionDeVuelos {
 
   /**
    *MINIMIZACIÓN DE TIEMPO TOTAL DE VIAJE
+   * dados dos aeropuertos, encuentra al menos 3 itinerarios que correspondadn a los menores tiempos de viaje
+   * teniendo en cuenta el tiempo de espera en tierra
    * */
   def itinerariosTiempo(salida: Aeropuerto, llegada: Aeropuerto): List[Itinerario] ={
     val iti=itinerario(salida.Cod, llegada.Cod)
@@ -68,6 +71,8 @@ package object PlanificacionDeVuelos {
   }
   /**
    *MINIMIZACIÓN DE CAMBIOS DE AVIÓN
+   * dados dos aeropuertos, encuentra al menos 3 itinerarios que hacen el menor numero de cambios de avión
+   * sin tener en cuenta el tiempo total de viaje
    * */
   def itinerariosCambios(salida: Aeropuerto, llegada: Aeropuerto): List[Itinerario] ={
     val iti = itinerario(salida.Cod, llegada.Cod)
@@ -86,11 +91,18 @@ package object PlanificacionDeVuelos {
       }
     }
     //mirar la cantidad de vuelos que tiene un itinerario
-    getItinerariosCambios(Nil,iti)
+    if(iti.length<=3){
+      iti
+    }else{
+      getItinerariosCambios(Nil,iti)
+    }
   }
+
 
   /**
    *MINIMIZACIÓN DE LA DISTANCIA RECORRIDA
+   * dados dos aeropuertos  encuentra al menos 3 itinerarios que minimicen itinerarios
+   * que minimicen el tiempo de vuelo, sin tener en cuenta el tiempo total de viaje
    * */
 
   def itinerariosDistacia(salida: Aeropuerto, llegada: Aeropuerto): List[Itinerario] ={
@@ -129,11 +141,17 @@ package object PlanificacionDeVuelos {
       }
     }
     val iti=itinerario(salida.Cod, llegada.Cod)
-    calcularTiemposMenores(Nil, iti)
+    if(iti.length <= 3){
+      iti
+    }else{
+      calcularTiemposMenores(Nil, iti)
+    }
   }
 
   /**
    *OPTIMIZACIÓN DE LA HORA DE SALIDA
+   * dados dos aeropuertos , determine el itinerario tal que la hora de salida a1,
+   * sea la hora más tarde posible para salir del aeropuero y llegar a tiempo a la cita
    * */
   def itinerariosSalida(salida: Aeropuerto, llegada: Aeropuerto , h: Int, m: Int): Itinerario ={
     def horaAminuto(h: Int, m:Int): Int = {
@@ -155,6 +173,4 @@ package object PlanificacionDeVuelos {
     // escribir las horas de salida en minutos
     iti.filter(x=> tiempoDeEspera(x) == esperaMenor(iti)).head
   }
-
-
 }

@@ -26,5 +26,4 @@ itinerariosCambios(salida2, llegada2)
 itinerariosCambios(salida2, llegada2).length
 
 itinerariosDistacia(salida2, llegada2)
-
 itinerariosSalida(salida2, llegada2, 4, 30)
