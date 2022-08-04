@@ -23,7 +23,7 @@ package object PlanificacionDeVuelos {
   }
 
   /**
-   *MINIMIZACIÓN DE TIEMPO TOTAL DE VIAJE
+   *2. MINIMIZACIÓN DE TIEMPO TOTAL DE VIAJE
    * dados dos aeropuertos, encuentra al menos 3 itinerarios que correspondadn a los menores tiempos de viaje
    * teniendo en cuenta el tiempo de espera en tierra
    * */
@@ -125,6 +125,7 @@ package object PlanificacionDeVuelos {
       }yield calculeTiempoDeVuelo(iti(i))
       tVuelo.sum
     }
+
     def encontrarTiempoMenor(iti: List[Itinerario]): Int ={
       val a= for{
         i <- 0 until iti.length
@@ -154,23 +155,21 @@ package object PlanificacionDeVuelos {
    * sea la hora más tarde posible para salir del aeropuero y llegar a tiempo a la cita
    * */
   def itinerariosSalida(salida: Aeropuerto, llegada: Aeropuerto , h: Int, m: Int): Itinerario ={
+
     def horaAminuto(h: Int, m:Int): Int = {
       (h * 60) + m
     }
-    def tiempoDeEspera(itinerario: Itinerario): Int = {
-      val salir = horaAminuto(h,m)
-      val sale = horaAminuto(itinerario.head.HS, itinerario.head.MS)
-      sale-salir
+    val cita= horaAminuto(h,m)
+    def llegadaDeItinerario(iti: Itinerario)= horaAminuto(iti.last.HL, iti.last.ML)
+    //filtrar los que llegan antes de la hora de la cita
+    val iti= itinerario(salida.Cod, llegada.Cod).filter(x=> llegadaDeItinerario(x) >= cita)
+    if(iti.length==0){
+      //no hay itinerarios que lleguen antes de la hora de salida
+      Nil
+    }else{
+      //el itinerario que sale más tarde es el que demora menos
+      itinerariosTiempo(salida, llegada).head
     }
-    def esperaMenor(itinerario: List[Itinerario]): Int ={
-      val espera = for{
-        i <- itinerario.indices
-      } yield tiempoDeEspera( itinerario(i));
-      espera.min
-    }
-    //encontrar la hora más cercana
-    val iti= itinerario(salida.Cod, llegada.Cod).filter(x=>  horaAminuto(h,m) <= horaAminuto(x.head.HS, x.head.MS))
-    // escribir las horas de salida en minutos
-    iti.filter(x=> tiempoDeEspera(x) == esperaMenor(iti)).head
+
   }
 }

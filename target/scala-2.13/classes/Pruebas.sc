@@ -10,7 +10,7 @@ itinerariosTiempo(salida, llegada)
 itinerariosTiempo(salida, llegada).length
 itinerariosDistacia(aeropuertos(12), aeropuertos(13))
 itinerario(salida.Cod, llegada.Cod)
-itinerariosSalida(aeropuertos(12), aeropuertos(13),4, 30)
+itinerariosSalida(aeropuertos(12), aeropuertos(13),12, 0)
 
 
 // segunda prueba
@@ -26,4 +26,5 @@ itinerariosCambios(salida2, llegada2)
 itinerariosCambios(salida2, llegada2).length
 
 itinerariosDistacia(salida2, llegada2)
-itinerariosSalida(salida2, llegada2, 4, 30)
+
+itinerariosSalida(salida2, llegada2, 10, 30)
