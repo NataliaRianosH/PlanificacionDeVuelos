@@ -106,8 +106,7 @@ package object PlanificacionDeVuelos {
         nuevoIti
       }
     }
-
-    if(iti.length <= 3){ //aqupi habia un 1
+    if(iti.length <= 3){
       //los unicos que hay
       iti
     }else{

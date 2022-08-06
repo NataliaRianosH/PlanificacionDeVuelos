@@ -24,6 +24,7 @@ package object Datos {
   )
   val vuelos = List(
     Vuelo("a1", 372, "A", 6, 0, "B", 8, 0, 1),
+    Vuelo("a13", 372, "B", 6, 0, "A", 8, 0, 1),
     Vuelo("a2", 245, "B", 9, 0, "C", 9, 30, 1),
     Vuelo("a3", 835, "C", 10, 0, "D", 13, 0, 1),
     Vuelo("a4", 356, "D", 14, 0, "F", 17, 10, 1),
@@ -36,6 +37,5 @@ package object Datos {
     Vuelo("a11", 368, "D", 16, 0, "H", 17, 0, 1),
     Vuelo("a12", 482, "A", 15, 0, "B", 16, 0, 1),
     Vuelo("a13", 531, "C", 11, 0, "D", 13, 0, 1),
-
   )
 }
